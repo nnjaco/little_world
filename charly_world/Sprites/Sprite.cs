@@ -11,48 +11,40 @@ using charly_world.Models;
 
 namespace charly_world.Sprites
 {
-  public class Sprite
+  public class Sprite<InterfaceObject>
   {
-    #region Fields
+        public Sprite()
+        {
+            public object _spriteT = new Sprite<InterfaceObject>();
+        }
+        
+        #region Fields
 
-    protected AnimationManager _animationManager;
+        protected AnimationManager _animationManager;
 
     protected Dictionary<string, Animation> _animations;
 
     protected Vector2 _position;
 
     protected Texture2D _texture;
+        
 
-    #endregion
+        #endregion
 
-    #region Properties
+        #region Properties
 
-    public Input Input;
 
-    public Vector2 Position
-    {
-      get { return _position; }
-      set
-      {
-        _position = value;
 
-        if (_animationManager != null)
-          _animationManager.Position = _position;
-      }
-    }
 
-    public float Speed = 1f;
 
-    public Vector2 Velocity;
+        #endregion
 
-    #endregion
+        #region Methods
 
-    #region Methods
-
-    public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
     {
       if (_texture != null)
-        spriteBatch.Draw(_texture, Position, Color.White);
+        spriteBatch.Draw(_texture, _spriteT.Position, Color.White);
       else if (_animationManager != null)
         _animationManager.Draw(spriteBatch);
       else throw new Exception("This ain't right..!");
@@ -60,32 +52,9 @@ namespace charly_world.Sprites
 
     public virtual void Move()
     {
-        if (Keyboard.GetState().IsKeyDown(Input.Up))
-        {
-            Velocity.Y = -Speed;
-            if (Keyboard.GetState().IsKeyDown(Input.Left)) { Velocity.X = -Speed; }
-            else if (Keyboard.GetState().IsKeyDown(Input.Right)) { Velocity.X = +Speed; }        
-        }
-            else if (Keyboard.GetState().IsKeyDown(Input.Down))
-            {
-                Velocity.Y = +Speed;
-                if (Keyboard.GetState().IsKeyDown(Input.Left)) { Velocity.X = -Speed; }
-                else if (Keyboard.GetState().IsKeyDown(Input.Right)) { Velocity.X = +Speed; }
-            }
-                else if (Keyboard.GetState().IsKeyDown(Input.Left))
-                {
-                    Velocity.X = -Speed;
-                    if (Keyboard.GetState().IsKeyDown(Input.Up)) { Velocity.Y = -Speed; }
-                    else if (Keyboard.GetState().IsKeyDown(Input.Down)) { Velocity.Y = +Speed; }
-                }
-                    else if (Keyboard.GetState().IsKeyDown(Input.Right))
-                    {
-                        Velocity.X = +Speed;
-                        if (Keyboard.GetState().IsKeyDown(Input.Up)) { Velocity.Y = -Speed; }
-                        else if (Keyboard.GetState().IsKeyDown(Input.Down)) { Velocity.Y = +Speed; }
-                    }
+       
 
-        }
+    }
 
     protected virtual void SetAnimations()
     {
@@ -111,9 +80,9 @@ namespace charly_world.Sprites
       _texture = texture;
     }
 
-    public virtual void Update(GameTime gameTime, List<Sprite> sprites)
+    public virtual void Update(GameTime gameTime, List<_spriteT> sprites)
     {
-      Move();
+      
 
       SetAnimations();
 
