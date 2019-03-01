@@ -60,15 +60,32 @@ namespace charly_world.Sprites
 
     public virtual void Move()
     {
-      if (Keyboard.GetState().IsKeyDown(Input.Up))
-        Velocity.Y = -Speed;
-      else if (Keyboard.GetState().IsKeyDown(Input.Down))
-        Velocity.Y = Speed;
-      else if (Keyboard.GetState().IsKeyDown(Input.Left))
-        Velocity.X = -Speed;
-      else if (Keyboard.GetState().IsKeyDown(Input.Right))
-        Velocity.X = Speed;
-    }
+        if (Keyboard.GetState().IsKeyDown(Input.Up))
+        {
+            Velocity.Y = -Speed;
+            if (Keyboard.GetState().IsKeyDown(Input.Left)) { Velocity.X = -Speed; }
+            else if (Keyboard.GetState().IsKeyDown(Input.Right)) { Velocity.X = +Speed; }        
+        }
+            else if (Keyboard.GetState().IsKeyDown(Input.Down))
+            {
+                Velocity.Y = +Speed;
+                if (Keyboard.GetState().IsKeyDown(Input.Left)) { Velocity.X = -Speed; }
+                else if (Keyboard.GetState().IsKeyDown(Input.Right)) { Velocity.X = +Speed; }
+            }
+                else if (Keyboard.GetState().IsKeyDown(Input.Left))
+                {
+                    Velocity.X = -Speed;
+                    if (Keyboard.GetState().IsKeyDown(Input.Up)) { Velocity.Y = -Speed; }
+                    else if (Keyboard.GetState().IsKeyDown(Input.Down)) { Velocity.Y = +Speed; }
+                }
+                    else if (Keyboard.GetState().IsKeyDown(Input.Right))
+                    {
+                        Velocity.X = +Speed;
+                        if (Keyboard.GetState().IsKeyDown(Input.Up)) { Velocity.Y = -Speed; }
+                        else if (Keyboard.GetState().IsKeyDown(Input.Down)) { Velocity.Y = +Speed; }
+                    }
+
+        }
 
     protected virtual void SetAnimations()
     {
